@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .font-cinzel {
+    font-family: "Cinzel Decorative", cursive;
+  }
+  @font-face {
+    font-family: 'MateJournal';
+    src: url('/fonts/MateJournal.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  .font-mate {
+    font-family: 'MateJournal', sans-serif;
+  }
+}
