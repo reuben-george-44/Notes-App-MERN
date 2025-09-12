@@ -3,8 +3,10 @@ import MainPage from "./components/MainPage"
 
 const App = () => {
   return(
-    // <MainPage/>
-    <LoginPage/>
+    <MainPage user={"Reuben"}>
+      
+    </MainPage>
+    // <LoginPage/>
   )
 }
 
