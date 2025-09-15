@@ -1,10 +1,12 @@
 import { useState } from "react"
 import Note from "./Note"
+import { v4 as uuidv4 } from "uuid";
 
 const MainPage = ({user}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setNotes(notes => [...notes, {
+      id: uuidv4(),
       title: title,
       desc: desc
     }])
@@ -20,7 +22,7 @@ const MainPage = ({user}) => {
       </div>
       {
         notes.map((note) => (
-          <Note title={note.title} desc={note.desc}></Note>
+          <Note key={note.id} notes={notes} setNotes = {setNotes} id={note.id} title={note.title} desc={note.desc}></Note>
         ))
       }
       <form name="form" className="min-h-20" onSubmit={handleSubmit}>
