@@ -1,16 +1,28 @@
 import { useState } from "react"
 import Note from "./Note"
 import { v4 as uuidv4 } from "uuid";
+import axios from "axios"
 
 const MainPage = ({user}) => {
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setNotes(notes => [...notes, {
+    const newNote = {
       id: uuidv4(),
-      title: title,
-      desc: desc
-    }])
+      title,
+      desc,
+    };
+
+    setNotes(notes => [...notes, newNote])
+
+    try {
+      const res = await axios.post("http://localhost:5000/api/notes", newNote);
+      console.log("Saved to backend:", res.data);
+
+    } catch (err) {
+      console.error("Error saving note:", err);
+    }
   }
+
   const [notes, setNotes] = useState([]);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState(""); 
