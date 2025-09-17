@@ -32,11 +32,13 @@ const MainPage = ({user}) => {
       <div className="absolute top-3 right-3 rounded-full bg-white">
         {/* Hello */}
       </div>
-      {
-        notes.map((note) => (
-          <Note key={note.id} notes={notes} setNotes = {setNotes} id={note.id} title={note.title} desc={note.desc}></Note>
-        ))
-      }
+      <div className="grid grid-cols-2">
+        {
+          notes.map((note) => (
+            <Note key={note.id} notes={notes} setNotes = {setNotes} id={note.id} title={note.title} desc={note.desc}></Note>
+          ))
+        }
+      </div>
       <form name="form" className="min-h-20" onSubmit={handleSubmit}>
         <input name="title" className="border-2" value={title} onChange={e => setTitle(e.target.value)} type="text" />
         <input name="desc" className="border-2" value={desc} onChange={e => setDesc(e.target.value)} type="text" />
