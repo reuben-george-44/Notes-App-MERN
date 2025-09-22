@@ -25,6 +25,16 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+const noteSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String
+  }
+})
+
 // Pre-save hook → hash password before saving
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next(); // only hash if changed
@@ -38,4 +48,6 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
 };
 
 const User = mongoose.model("User", userSchema);
+const Note = mongoose.model("Note", noteSchema)
+
 export default User;

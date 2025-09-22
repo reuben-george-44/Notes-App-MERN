@@ -1,8 +1,9 @@
 import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/connect.js";
-import router from "./routes/routes.js";
+import taskRoutes from "./routes/routes.js";
 import cors from "cors"
+import mongoose from "mongoose";
 
 dotenv.config();
 
@@ -15,8 +16,13 @@ app.use(cors({
   credentials: true
 }));
 
-app.use(router)
+app.use('/notes', taskRoutes)
 
-app.listen(5000, () => {
-  console.log("hello");
-});
+mongoose.connect(process.env.MONGO_URI)
+.then(
+  app.listen(5000, () => {
+    console.log("hello");
+  })
+).catch(err => {
+  console.error(err);
+})
