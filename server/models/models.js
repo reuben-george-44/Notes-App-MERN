@@ -13,7 +13,6 @@ const userSchema = new mongoose.Schema(
       required: [true, "Email is required"],
       unique: true,
       lowercase: true,
-      match: [/^\S+@\S+\.\S+$/, "Please use a valid email address"],
     },
     password: {
       type: String,
@@ -22,7 +21,6 @@ const userSchema = new mongoose.Schema(
       select: false, // don’t send password in queries by default
     },
   },
-  { timestamps: true }
 );
 
 const noteSchema = new mongoose.Schema({
@@ -31,23 +29,12 @@ const noteSchema = new mongoose.Schema({
     required: true
   },
   description: {
-    type: String
+    type: String,
+    maxlength: 500
   }
 })
-
-// Pre-save hook → hash password before saving
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next(); // only hash if changed
-  this.password = await bcrypt.hash(this.password, 12);
-  next();
-});
-
-// Compare entered password with hashed password
-userSchema.methods.comparePassword = async function (candidatePassword) {
-  return bcrypt.compare(candidatePassword, this.password);
-};
 
 const User = mongoose.model("User", userSchema);
 const Note = mongoose.model("Note", noteSchema)
 
-export default User;
+export {User, Note};

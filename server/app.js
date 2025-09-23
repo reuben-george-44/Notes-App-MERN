@@ -16,7 +16,7 @@ app.use(cors({
   credentials: true
 }));
 
-app.use('/notes', taskRoutes)
+app.use('/notes-app/crud', taskRoutes)
 
 mongoose.connect(process.env.MONGO_URI)
 .then(
